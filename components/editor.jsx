@@ -1,17 +1,19 @@
 import { Editor as PrimeEditor } from "primereact/editor";
-import { TextInput } from "@mantine/core";
+import { TextInput, Button } from "@mantine/core";
+import { useContext } from "react";
+import { PageContext } from "@/app/page";
+import { useRouter } from 'next/navigation'
 
-import { useState } from "react";
 
 export default function TextEditor() {
-    const [reportMetaData, setReportMetaData] = useState({
-        title: "",
-        date: "",
-        author: "",
-        department: "",
-    });
+    const {
+        reportMetaData,
+        setReportMetaData,
+        reportBodyText,
+        setReportBodyText,
+    } = useContext(PageContext);
 
-    const [reportBodyText, setReportBodyText] = useState("");
+    const router = useRouter();
 
     return (
         <main className="">
@@ -76,17 +78,11 @@ export default function TextEditor() {
                 style={{ height: "320px" }}
             />
 
-            <p className="p-5">
-                <div>{reportBodyText}</div>
-                <br />
-                {reportMetaData.title}
-                <br />
-                {reportMetaData.date}
-                <br />
-                {reportMetaData.author}
-                <br />
-                {reportMetaData.department}
-            </p>
+            <div className="p-5">
+                <Button onClick={() => router.push('/out')} variant="filled" color="indigo" size="sm" radius="md">
+                    PDF Oluştur
+                </Button>
+            </div>
         </main>
     );
 }
