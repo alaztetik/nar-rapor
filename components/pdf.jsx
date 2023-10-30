@@ -1,4 +1,6 @@
 import { Page, Text, View, Document, StyleSheet, Link } from "@react-pdf/renderer";
+import { Markup } from "interweave";
+
 
 const styles = StyleSheet.create({
     page: {
@@ -17,6 +19,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#333",
     },
+    text: {
+        margin: 5,
+        fontSize: 12,
+        textAlign: "justify",
+        color: "#333",
+    }
 });
 
 const PDFDocumentComponent = ({
@@ -24,7 +32,11 @@ const PDFDocumentComponent = ({
     reportBodyText
 }) => {
 
-    console.log("reportMetaData", reportMetaData);
+    console.log("component/pdf -> reportMetaData", reportMetaData);
+    console.log("component/pdf -> reportBodyText", reportBodyText);
+
+    const splittedBodyText = reportBodyText.split("\n");
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -39,10 +51,11 @@ const PDFDocumentComponent = ({
                     <Text>
                         {reportMetaData.title}
                     </Text>
-
-                    <Text>
-                        {reportBodyText}
-                    </Text>
+                    {splittedBodyText.map((item, index) => (
+                        <Text key={index} style={styles.text}>
+                            {item}
+                        </Text>
+                    ))}
                 </View>
             </Page>
         </Document>

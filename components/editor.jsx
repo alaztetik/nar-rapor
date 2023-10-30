@@ -69,7 +69,7 @@ export default function TextEditor({
             <PrimeEditor
                 className="p-5"
                 value={reportBodyText}
-                onTextChange={(e) => setReportBodyText(e.htmlValue)}
+                onTextChange={(e) => setReportBodyText(e.textValue)}
                 style={{ height: "320px" }}
             />
 
