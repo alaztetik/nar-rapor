@@ -1,7 +1,7 @@
 import { Editor as PrimeEditor } from "primereact/editor";
 import { TextInput, Button } from "@mantine/core";
 import { useContext } from "react";
-import { PageContext } from "@/app/page";
+import { PageContext } from "@/app/layout";
 import { useRouter } from 'next/navigation'
 
 

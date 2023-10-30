@@ -3,6 +3,9 @@
 import "./globals.css";
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
+import { createContext, useState } from "react";
+
+export const PageContext = createContext(null);
 
 /* export const metadata = {
   title: 'Create Next App',
@@ -10,10 +13,28 @@ import { MantineProvider } from "@mantine/core";
 }; */
 
 export default function RootLayout({ children }) {
+    const [reportMetaData, setReportMetaData] = useState({
+        title: "",
+        date: "",
+        author: "",
+        department: "",
+    });
+
+    const [reportBodyText, setReportBodyText] = useState("");
+
     return (
         <html lang="tr" className="text-lg">
             <MantineProvider>
-                <body className="">{children}</body>
+                <PageContext.Provider
+                    value={{
+                        reportMetaData,
+                        setReportMetaData,
+                        reportBodyText,
+                        setReportBodyText,
+                    }}
+                >
+                    <body className="">{children}</body>
+                </PageContext.Provider>
             </MantineProvider>
         </html>
     );
