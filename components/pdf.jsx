@@ -19,7 +19,12 @@ const styles = StyleSheet.create({
     },
 });
 
-const PDFDocumentComponent = () => {
+const PDFDocumentComponent = ({
+    reportMetaData,
+    reportBodyText
+}) => {
+
+    console.log("reportMetaData", reportMetaData);
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -31,9 +36,13 @@ const PDFDocumentComponent = () => {
                         pariatur eum facilis ullam tenetur neque deserunt saepe
                         qui obcaecati dolor, esse fuga magni maxime porro?
                     </Text>
-                    <Link src="https://narkaucuk.com">
-                        Visit Nar Kauçuk Website
-                    </Link>
+                    <Text>
+                        {reportMetaData.title}
+                    </Text>
+
+                    <Text>
+                        {reportBodyText}
+                    </Text>
                 </View>
             </Page>
         </Document>
