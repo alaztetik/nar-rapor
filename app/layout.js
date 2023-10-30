@@ -11,7 +11,7 @@ import { MantineProvider } from "@mantine/core";
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="tr">
+        <html lang="tr" className="text-lg">
             <MantineProvider>
                 <body className="">{children}</body>
             </MantineProvider>

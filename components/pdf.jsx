@@ -1,4 +1,4 @@
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { Page, Text, View, Document, StyleSheet, Link } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
     page: {
@@ -7,10 +7,15 @@ const styles = StyleSheet.create({
     },
     section: {
         fontSize: 12,
-        margin: 10,
-        padding: 10,
+        margin: 20,
+        padding: 5,
         flexGrow: 1,
-        backgroundColor: "tomato"
+    },
+    header: {
+        fontSize: 15,
+        marginBottom: 10,
+        textAlign: "center",
+        color: "#333",
     },
 });
 
@@ -19,12 +24,20 @@ const PDFDocumentComponent = () => {
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
-                    <Text>Section 1</Text>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error rerum officiis deleniti voluptatum beatae, pariatur eum facilis ullam tenetur neque deserunt saepe qui obcaecati dolor, esse fuga magni maxime porro?</Text>
+                    <Text style={styles.header}>Section 1</Text>
+                    <Text>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Error rerum officiis deleniti voluptatum beatae,
+                        pariatur eum facilis ullam tenetur neque deserunt saepe
+                        qui obcaecati dolor, esse fuga magni maxime porro?
+                    </Text>
+                    <Link src="https://narkaucuk.com">
+                        Visit Nar Kauçuk Website
+                    </Link>
                 </View>
             </Page>
         </Document>
     );
-}
+};
 
 export default PDFDocumentComponent;
