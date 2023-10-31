@@ -1,5 +1,5 @@
-import { Page, Text, View, Document, StyleSheet, Link } from "@react-pdf/renderer";
-import { Markup } from "interweave";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+
 
 
 const styles = StyleSheet.create({
@@ -31,9 +31,6 @@ const PDFDocumentComponent = ({
     reportMetaData,
     reportBodyText
 }) => {
-
-    console.log("component/pdf -> reportMetaData", reportMetaData);
-    console.log("component/pdf -> reportBodyText", reportBodyText);
 
     const splittedBodyText = reportBodyText.split("\n");
 
