@@ -11,6 +11,7 @@ export default function TextEditor({
 }) {
 
     return (
+        //TODO remove control panel buttons and only allow for text and image input
         <main className="">
             <div className="flex flex-col p-5 gap-2">
                 <div className="flex flex-row gap-2">

@@ -1,7 +1,5 @@
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
-
-
 const styles = StyleSheet.create({
     page: {
         flexDirection: "row",
@@ -24,15 +22,23 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textAlign: "justify",
         color: "#333",
-    }
+    },
 });
 
-const PDFDocumentComponent = ({
-    reportMetaData,
-    reportBodyText
-}) => {
+const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
 
-    const splittedBodyText = reportBodyText.split("\n");
+    console.log("PDF:", reportBodyText);
+
+    //TODO separate image and paragraph and render them separately
+    const BodyTextAsPDFTextComponent = reportBodyText
+        .split("\n")
+        .map((item, key) => {
+            return (
+                <Text key={key} style={styles.text}>
+                    {item}
+                </Text>
+            );
+        });
 
     return (
         <Document>
@@ -45,14 +51,9 @@ const PDFDocumentComponent = ({
                         pariatur eum facilis ullam tenetur neque deserunt saepe
                         qui obcaecati dolor, esse fuga magni maxime porro?
                     </Text>
-                    <Text>
-                        {reportMetaData.title}
-                    </Text>
-                    {splittedBodyText.map((item, index) => (
-                        <Text key={index} style={styles.text}>
-                            {item}
-                        </Text>
-                    ))}
+                    
+                    {BodyTextAsPDFTextComponent}
+                    
                 </View>
             </Page>
         </Document>
