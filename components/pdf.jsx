@@ -39,14 +39,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
 
-    console.log("PDF:", reportBodyText);
+const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
 
     const [paragraphs, images] = stringToArray(reportBodyText);
 
-    console.log("PARAGRAPHS:", paragraphs);
-    console.log("IMAGES:", images);
 
     const paragraphsArray = [];
     for (let i = 0; i < paragraphs.length; i++) {
@@ -87,21 +84,39 @@ const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
     );
 };
 
-// write me a function that takes a single string input and returns an array of 2 arrays, one is composed of parsed paragraph elements and other is composed of parsed image elements
+
+export default PDFDocumentComponent;
+
+
 function stringToArray(text) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, "text/html");
     const children = doc.body.children;
-    const paragraphs = [];
-    const images = [];
+    const returnArray = [];
+    const imgagesArray = [];
     for (let i = 0; i < children.length; i++) {
-        if (children[i].tagName === "P") {
-            paragraphs.push(children[i]);
-        } else if (children[i].tagName === "IMG") {
-            images.push(children[i]);
+        returnArray.push(children[i]);
+    }
+
+    // check if there are any img tags inside the p tags:
+    for (let i = 0; i < returnArray.length; i++) {
+        if (returnArray[i].tagName === "P") {
+            if (returnArray[i].innerHTML.includes("<img")) {
+                imgagesArray.push(returnArray[i].children[0]);
+            }
         }
     }
-    return [paragraphs, images];
+
+    console.log("RETURN ARRAY:", returnArray);
+    console.log("IMAGES ARRAY:", imgagesArray);
+    
+    return [returnArray, imgagesArray];
+
 }
 
-export default PDFDocumentComponent;
+
+
+
+
+
+
