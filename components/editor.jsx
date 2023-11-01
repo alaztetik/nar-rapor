@@ -1,14 +1,14 @@
 import { Editor as PrimeEditor } from "primereact/editor";
 import { TextInput, Button } from "@mantine/core";
 
-
 export default function TextEditor({
     reportMetaData,
     setReportMetaData,
     reportBodyText,
     setReportBodyText,
-    setIsForm
+    setIsForm,
 }) {
+    const toolbar = EditorToolbar();
 
     return (
         //TODO remove control panel buttons and only allow for text and image input
@@ -70,15 +70,30 @@ export default function TextEditor({
             <PrimeEditor
                 className="p-5"
                 value={reportBodyText}
-                onTextChange={(e) => setReportBodyText(e.textValue)}
+                onTextChange={(e) => setReportBodyText(e.htmlValue)}
                 style={{ height: "320px" }}
+                headerTemplate={toolbar}
             />
 
             <div className="p-5">
-                <Button onClick={() => setIsForm(false)} variant="filled" color="indigo" size="sm" radius="md">
+                <Button
+                    onClick={() => setIsForm(false)}
+                    variant="filled"
+                    color="indigo"
+                    size="sm"
+                    radius="md"
+                >
                     PDF Oluştur
                 </Button>
             </div>
         </main>
+    );
+}
+
+function EditorToolbar() {
+    return (
+        <span className="ql-formats">
+            <button className="ql-image" aria-label="Image">Image</button>
+        </span>
     );
 }
