@@ -5,7 +5,7 @@ import {
     Document,
     StyleSheet,
     Font,
-    Image
+    Image,
 } from "@react-pdf/renderer";
 
 Font.register({
@@ -14,36 +14,44 @@ Font.register({
 });
 
 const styles = StyleSheet.create({
-    page: {
-        flexDirection: "row",
+    body: {
+        flexDirection: "column",
         backgroundColor: "#E4E4E4",
-    },
-    section: {
-        fontSize: 12,
-        margin: 20,
-        padding: 5,
-        flexGrow: 1,
+        paddingTop: 35,
+        paddingBottom: 65,
+        paddingHorizontal: 35,
+        fontFamily: "EB Garamond",
     },
     header: {
-        fontSize: 15,
-        marginBottom: 10,
         textAlign: "center",
-        color: "#333",
     },
-    text: {
-        margin: 5,
+    title: {
+        fontSize: 20,
+    },
+    author: {
+        marginTop: 5,
+        fontSize: 16,
+    },
+    subheader: {
+        fontSize: 14,
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 30,
+        marginBottom: 20,
+    },
+    department: {
+        marginRight: 10,
+    },
+    date: {
+        marginLeft: 10,
+    },
+    paragraphs: {
         fontSize: 12,
-        textAlign: "justify",
-        color: "#333",
-        fontFamily: "EB Garamond",
     },
 });
 
-
 const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
-
     const [paragraphs, images] = stringToArray(reportBodyText);
-
 
     const paragraphsArray = [];
     for (let i = 0; i < paragraphs.length; i++) {
@@ -55,38 +63,34 @@ const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
     const imagesArray = [];
     for (let i = 0; i < images.length; i++) {
         imagesArray.push(
-            <Image
-                src={images[i].src}
-                style={{ width: 200, height: 200 }}
-                alt="image"
-            />
+            <Image src={images[i].src} style={{ width: "100%" }} alt="image" />
         );
     }
 
-
     return (
         <Document>
-            <Page size="A4" style={styles.page}>
-                <View style={styles.section}>
-                    <Text style={styles.header}>Section 1</Text>
-                    <Text style={styles.text}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Error rerum officiis deleniti voluptatum beatae,
-                        pariatur eum facilis ullam tenetur neque deserunt saepe
-                        qui obcaecati dolor, esse fuga magni maxime porro?
-                    </Text>
-                    {paragraphsArray}
-
-                    {imagesArray}
+            <Page size="A4" style={styles.body}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>{reportMetaData.title}</Text>
+                    <Text style={styles.author}>{reportMetaData.author}</Text>
                 </View>
+                <View style={styles.subheader}>
+                    <Text style={styles.department}>
+                        {reportMetaData.department}
+                    </Text>
+                    <Text>
+                        |
+                    </Text>
+                    <Text style={styles.date}>{reportMetaData.date}</Text>
+                </View>
+                <View style={styles.paragraphs}>{paragraphsArray}</View>
+                <View>{imagesArray}</View>
             </Page>
         </Document>
     );
 };
 
-
 export default PDFDocumentComponent;
-
 
 function stringToArray(text) {
     const parser = new DOMParser();
@@ -109,14 +113,6 @@ function stringToArray(text) {
 
     console.log("RETURN ARRAY:", returnArray);
     console.log("IMAGES ARRAY:", imgagesArray);
-    
+
     return [returnArray, imgagesArray];
-
 }
-
-
-
-
-
-
-
