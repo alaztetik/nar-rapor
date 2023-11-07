@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     title: {
-        fontSize: 20,
+        fontSize: 24,
     },
     author: {
         marginTop: 5,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         flexDirection: "row",
         justifyContent: "center",
-        marginTop: 30,
+        marginTop: 20,
         marginBottom: 20,
     },
     department: {
@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     },
     paragraphs: {
         fontSize: 12,
+    },
+    images: {
+        marginTop: 10,
     },
 });
 
@@ -63,29 +66,38 @@ const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
     const imagesArray = [];
     for (let i = 0; i < images.length; i++) {
         imagesArray.push(
-            <Image src={images[i].src} style={{ width: "100%" }} alt="image" />
+            <Image
+                src={images[i].src}
+                style={{ width: "100%", marginBottom: 5 }}
+                alt="image"
+            />
         );
     }
 
     return (
         <Document>
-            <Page size="A4" style={styles.body}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>{reportMetaData.title}</Text>
-                    <Text style={styles.author}>{reportMetaData.author}</Text>
-                </View>
-                <View style={styles.subheader}>
-                    <Text style={styles.department}>
-                        {reportMetaData.department}
-                    </Text>
-                    <Text>
-                        |
-                    </Text>
-                    <Text style={styles.date}>{reportMetaData.date}</Text>
-                </View>
-                <View style={styles.paragraphs}>{paragraphsArray}</View>
-                <View>{imagesArray}</View>
-            </Page>
+            {
+                <Page size="A4" style={styles.body}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>{reportMetaData.title}</Text>
+                        <Text style={styles.author}>
+                            {reportMetaData.author}
+                        </Text>
+                    </View>
+                    <View style={styles.subheader}>
+                        <Text style={styles.department}>
+                            {reportMetaData.department}
+                        </Text>
+                        <Text>|</Text>
+                        <Text style={styles.date}>{reportMetaData.date}</Text>
+                    </View>
+                    <View style={styles.paragraphs}>{paragraphsArray}</View>
+                    <View style={[styles.header, { fontSize: 12 }]}>
+                        <Text>Ek Fotoğraflar</Text>
+                    </View>
+                    <View style={styles.images}>{imagesArray}</View>
+                </Page>
+            }
         </Document>
     );
 };
