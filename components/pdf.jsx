@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     images: {
         marginTop: 10,
     },
+    text: {
+        marginBottom: 10,
+    },
 });
 
 const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
@@ -66,38 +69,33 @@ const PDFDocumentComponent = ({ reportMetaData, reportBodyText }) => {
     const imagesArray = [];
     for (let i = 0; i < images.length; i++) {
         imagesArray.push(
-            <Image
-                src={images[i].src}
-                style={{ width: "100%", marginBottom: 5 }}
-                alt="image"
-            />
+            <Page size="A4" style={styles.body}>
+                <Image
+                    src={images[i].src}
+                    style={{ width: "100%", marginBottom: 5 }}
+                    alt="image"
+                />
+            </Page>
         );
     }
 
     return (
         <Document>
-            {
-                <Page size="A4" style={styles.body}>
-                    <View style={styles.header}>
-                        <Text style={styles.title}>{reportMetaData.title}</Text>
-                        <Text style={styles.author}>
-                            {reportMetaData.author}
-                        </Text>
-                    </View>
-                    <View style={styles.subheader}>
-                        <Text style={styles.department}>
-                            {reportMetaData.department}
-                        </Text>
-                        <Text>|</Text>
-                        <Text style={styles.date}>{reportMetaData.date}</Text>
-                    </View>
-                    <View style={styles.paragraphs}>{paragraphsArray}</View>
-                    <View style={[styles.header, { fontSize: 12 }]}>
-                        <Text>Ek Fotoğraflar</Text>
-                    </View>
-                    <View style={styles.images}>{imagesArray}</View>
-                </Page>
-            }
+            <Page size="A4" style={styles.body}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>{reportMetaData.title}</Text>
+                    <Text style={styles.author}>{reportMetaData.author}</Text>
+                </View>
+                <View style={styles.subheader}>
+                    <Text style={styles.department}>
+                        {reportMetaData.department}
+                    </Text>
+                    <Text>|</Text>
+                    <Text style={styles.date}>{reportMetaData.date}</Text>
+                </View>
+                <View style={styles.paragraphs}>{paragraphsArray}</View>
+            </Page>
+            {imagesArray}
         </Document>
     );
 };
