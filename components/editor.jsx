@@ -79,9 +79,9 @@ export default function TextEditor({
                 <Button
                     onClick={() => setIsForm(false)}
                     variant="filled"
-                    color="indigo"
                     size="sm"
                     radius="md"
+                    className="bg-blue-700"
                 >
                     PDF Oluştur
                 </Button>
